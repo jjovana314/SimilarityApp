@@ -63,8 +63,8 @@ class Register(Resource):
         if helper.user_exist(username, users):
             return jsonify(
                 {
-                    "status": INVALID_USERNAME,
-                    "msg": "Invalid username!"
+                    "Code": INVALID_USERNAME,
+                    "Message": "Invalid username!"
                 }
             )
 
@@ -80,8 +80,8 @@ class Register(Resource):
         )
         return jsonify(
             {
-                "status": OK,
-                "msg": "You've successfully signed up to the API."
+                "Code": OK,
+                "Message": "You've successfully signed up to the API."
             }
         )
 
@@ -118,8 +118,8 @@ class Detect(Resource):
         if not helper.user_exist(username, users):
             return jsonify(
                 {
-                    "status": INVALID_USERNAME,
-                    "msg": "Invalid username detected!"
+                    "Code": INVALID_USERNAME,
+                    "Message": "Invalid username detected!"
                 }
             )
 
@@ -128,16 +128,16 @@ class Detect(Resource):
         if not correct_pw:
             return jsonify(
                 {
-                    "status": INVALID_USERNAME,
-                    "msg": "Invalid password detected!"
+                    "Code": INVALID_USERNAME,
+                    "Message": "Invalid password detected!"
                 }
             )
         tokens_current = helper.count_tokens(username, users)
         if tokens_current <= 0:
             return jsonify(
                 {
-                    "status": OUT_OF_TOKENS,
-                    "msg": "You're out of tokens, please refill!"
+                    "Code": OUT_OF_TOKENS,
+                    "Message": "You're out of tokens, please refill!"
                 }
             )
         ratio = helper.similarity_ratio(text1, text2)
@@ -145,9 +145,9 @@ class Detect(Resource):
         helper.update_tokens(users, username, operator.sub, 1)
         return jsonify(
             {
-                "status": OK,
-                "similarity": ratio,
-                "msg": "Similarity score calculated successfully."
+                "Code": OK,
+                "Similarity": ratio,
+                "Message": "Similarity score calculated successfully."
             }
         )
 
