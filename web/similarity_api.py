@@ -161,7 +161,7 @@ class Detect(Resource):
 
 
 # valid keys for refill
-refill_tokens_valid = ["username", "admin_password", "amout"]
+refill_tokens_valid = ["username", "admin_password", "amount"]
 admin_password = "abmnOp12.80"
 
 
