@@ -3,3 +3,4 @@ flask_restful
 pymongo
 bcrypt
 spacy
+flask_jwt_extended
