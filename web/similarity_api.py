@@ -196,7 +196,7 @@ class Refill(Resource):
             )
         username = data["username"]
         admin_pwd = data["admin_password"]
-        amout_tokens = data["amout"]
+        amount_tokens = data["amount"]
         if not helper.user_exist(username, users):
             return jsonify(
                 {
@@ -213,7 +213,7 @@ class Refill(Resource):
                 }
             )
         # add tokens
-        helper.update_tokens(users, username, operator.add, amout_tokens)
+        helper.update_tokens(users, username, operator.add, amount_tokens)
         return jsonify(
             {
                 "Message": "Your tokens updated successfully.",
