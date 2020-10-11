@@ -10,6 +10,11 @@ from flask import Flask, jsonify, request
 from flask_restful import Resource, Api
 from pymongo import MongoClient
 from werkzeug.wrappers import BaseResponse
+from flask_jwt_extended import (
+    JWTManager, jwt_required, create_access_token,
+    jwt_refresh_token_required, create_refresh_token,
+    get_jwt_identity
+)
 import bcrypt
 import similarity_helper as helper
 import operator
@@ -22,6 +27,8 @@ OUT_OF_TOKENS = 303
 
 
 app = Flask(__name__)
+app.config["JWT_SECRET_KEY"] = b"@\xe4\x82+{\xed)~\x92\x84K\x11:)\x95\xf4"
+jwt = JWTManager(app)
 api = Api(app)
 
 client = MongoClient("mongodb://db:27017")
@@ -80,8 +87,9 @@ class Register(Resource):
         )
         return jsonify(
             {
-                "Code": OK,
-                "Message": "You've successfully signed up to the API."
+                "access_token": create_access_token(identity=username),
+                "refresh_token": create_refresh_token(identity=username),
+                "code": OK
             }
         )
 
